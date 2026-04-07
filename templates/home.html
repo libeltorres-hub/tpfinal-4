@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio - Blog Torres{% endblock %}
+
+{% block content %}
+
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-3">
+        <h1 class="display-5 fw-bold">Bienvenida al Blog de Libel Torres</h1>
+        <p class="col-md-8 fs-5">Un espacio para compartir ideas, experiencias y aprendizajes.</p>
+        <a href="{% url 'page-list' %}" class="btn btn-primary btn-lg">Ver todas las entradas</a>
+        <a href="{% url 'about' %}" class="btn btn-outline-secondary btn-lg ms-2">Acerca de mí</a>
+    </div>
+</div>
+
+<h3 class="mb-3">Últimas entradas</h3>
+<hr>
+
+{% if ultimas_entradas %}
+<div class="row row-cols-1 row-cols-md-3 g-4 mb-4">
+    {% for entrada in ultimas_entradas %}
+    <div class="col">
+        <div class="card h-100">
+            {% if entrada.image %}
+            <img src="{{ entrada.image.url }}" class="card-img-top" alt="{{ entrada.title }}" style="max-height:180px; object-fit:cover;">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ entrada.title }}</h5>
+                {% if entrada.subtitle %}
+                <p class="card-text text-muted">{{ entrada.subtitle }}</p>
+                {% endif %}
+                <p class="card-text"><small class="text-muted">{{ entrada.created_at }} &mdash; {{ entrada.author }}</small></p>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'page-detail' entrada.pk %}" class="btn btn-outline-primary btn-sm">Leer más</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="text-center">
+    <a href="{% url 'page-list' %}" class="btn btn-secondary">Ver todas las entradas &rarr;</a>
+</div>
+
+{% else %}
+<div class="alert alert-info">
+    Todavía no hay entradas en el blog.
+    {% if user.is_authenticated %}
+    <a href="{% url 'page-create' %}">¡Creá la primera!</a>
+    {% endif %}
+</div>
+{% endif %}
+
+{% endblock %}

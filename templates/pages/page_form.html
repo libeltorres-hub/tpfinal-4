@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if page %}Editar entrada{% else %}Nueva entrada{% endif %}{% endblock %}
+
+{% block content %}
+<h2>{% if page %}Editar entrada{% else %}Nueva entrada{% endif %}</h2>
+<hr>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {% for field in form %}
+    <div class="mb-3">
+        <label for="{{ field.id_for_label }}" class="form-label fw-semibold">{{ field.label }}</label>
+
+        {% if field.name == 'image' and page.image %}
+        <div class="mb-2">
+            <small class="text-muted">Imagen actual:</small><br>
+            <img src="{{ page.image.url }}" style="max-height:120px; border-radius:4px;" class="mt-1">
+        </div>
+        {% endif %}
+
+        {{ field }}
+
+        {% for error in field.errors %}
+        <div class="text-danger small mt-1">{{ error }}</div>
+        {% endfor %}
+        {% if field.help_text %}
+        <div class="form-text text-muted">{{ field.help_text }}</div>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <a href="{% url 'page-list' %}" class="btn btn-secondary ms-2">Cancelar</a>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+{{ form.media }}
+{% endblock %}

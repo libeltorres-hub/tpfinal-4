@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Mi Perfil{% endblock %}
+
+{% block content %}
+<h2>Mi Perfil</h2>
+<hr>
+<p><strong>Usuario:</strong> {{ user.username }}</p>
+<p><strong>Email:</strong> {{ user.email }}</p>
+<p><strong>Biografía:</strong> {{ user.profile.bio|default:"Sin biografía" }}</p>
+<p><strong>Sitio web:</strong>
+    {% if user.profile.link %}
+    <a href="{{ user.profile.link }}" target="_blank">{{ user.profile.link }}</a>
+    {% else %}
+    Sin link
+    {% endif %}
+</p>
+<p><strong>Fecha de nacimiento:</strong> {{ user.profile.birthday|default:"No indicada" }}</p>
+
+<hr>
+<a href="{% url 'profile-edit' %}" class="btn btn-warning btn-sm">Editar perfil</a>
+<a href="{% url 'password-change' %}" class="btn btn-outline-secondary btn-sm ms-2">Cambiar contraseña</a>
+{% endblock %}
