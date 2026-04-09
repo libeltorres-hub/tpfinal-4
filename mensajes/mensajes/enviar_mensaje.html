@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Nuevo mensaje{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Nuevo mensaje</h2>
+
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="id_destinatario" class="form-label">Para</label>
+                {{ form.destinatario }}
+            </div>
+            <div class="mb-3">
+                <label for="id_asunto" class="form-label">Asunto</label>
+                {{ form.asunto }}
+            </div>
+            <div class="mb-3">
+                <label for="id_cuerpo" class="form-label">Mensaje</label>
+                {{ form.cuerpo }}
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+            <a href="{% url 'bandeja-entrada' %}" class="btn btn-secondary ms-2">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

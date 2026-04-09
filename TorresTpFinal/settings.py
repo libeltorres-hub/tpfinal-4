@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'pages',
     'accounts',
+    'mensajes',
 ]
 
 MIDDLEWARE = [

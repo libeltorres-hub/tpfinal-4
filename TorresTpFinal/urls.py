@@ -11,5 +11,6 @@ urlpatterns = [
     path('about/', TemplateView.as_view(template_name='about.html'), name='about'),
     path('pages/', include('pages.urls')),
     path('accounts/', include('accounts.urls')),
+    path('mensajes/', include('mensajes.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
